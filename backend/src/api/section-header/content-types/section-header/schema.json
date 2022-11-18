@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "section_headers",
+  "info": {
+    "singularName": "section-header",
+    "pluralName": "section-headers",
+    "displayName": "Section Header",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Section Header"
+    },
+    "integration_guides": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::integration-guide.integration-guide",
+      "mappedBy": "section_header"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    }
+  }
+}

@@ -4,7 +4,7 @@ a {
 
 h1 {
   font-family: Staatliches;
-  font-size: 120px;
+  font-size: 64px;
 }
 
 #category {
@@ -38,4 +38,37 @@ h1 {
 img:hover {
   opacity: 1;
   transition: opacity 0.25s cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+
+/* GUIDES PAGE */
+
+.side-menu-wrapper {
+  background-color: white;
+  min-width: 360px;
+  height: 100vh;
+  padding: 64px 16px;
+}
+
+.sidemenu-section-header {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.sidemenu-divider {
+  padding-left: 32px;
+  display: block;
+  color: #555;
+  line-height: 200%;
+}
+
+.guides-page-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.documentation-page-wrapper {
+  background-color: #fafafa;
+  padding: 64px 64px;
 }

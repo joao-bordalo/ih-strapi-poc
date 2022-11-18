@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "integration_guides",
+  "info": {
+    "singularName": "integration-guide",
+    "pluralName": "integration-guides",
+    "displayName": "Integration Guide",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "richtext",
+      "default": "Enter content here",
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "section_header": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::section-header.section-header",
+      "inversedBy": "integration_guides"
+    }
+  }
+}
