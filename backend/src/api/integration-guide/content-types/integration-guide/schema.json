@@ -28,6 +28,14 @@
       "relation": "manyToOne",
       "target": "api::section-header.section-header",
       "inversedBy": "integration_guides"
+    },
+    "Category": {
+      "type": "enumeration",
+      "enum": [
+        "Terminal",
+        "Tax",
+        "General"
+      ]
     }
   }
 }
