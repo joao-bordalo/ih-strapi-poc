@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "section_header_i_hubs",
+  "info": {
+    "singularName": "section-header-i-hub",
+    "pluralName": "section-header-i-hubs",
+    "displayName": "Section Header - IHub",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "integration_guides": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::integration-guide-i-hub.integration-guide-i-hub",
+      "mappedBy": "section_header_i_hub"
+    }
+  }
+}

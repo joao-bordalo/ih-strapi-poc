@@ -1,0 +1,95 @@
+import React, { useState } from "react"
+import ReactMarkdown from "react-markdown"
+import { fetchAPI } from "../lib/api"
+import MDXComponent from "../components/mdx/MDXComponent.js"
+import Layout from "../components/mdx/Layout.js"
+import Sidemenu from "../components/sidemenu"
+
+export const meta = {
+  author: "Rich Haines",
+}
+
+# My MDX page
+
+This is a list in markdown:
+
+- One
+- Two
+- Three
+
+Checkout my React component:
+
+<MDXComponent />
+
+export default (params) => {
+  console.log('....',params);
+  const {children, guides, sectionHeaders, sectionHeadersIH}=params
+
+const [currentGuide, setCurrentGuide] = useState(guides[0])
+
+const handleClick = (sectionSlug, guideSlug) => {
+const section = sectionMenus.find((section) => section.attributes.slug === sectionSlug)
+const guide = section.attributes.integration_guides.data.find(
+(guide) => guide.attributes.slug === guideSlug
+)
+setCurrentGuide(guide)
+}
+
+const sectionMenus = [...sectionHeaders, ...sectionHeadersIH]
+
+return <Layout meta={meta}>
+
+<div className="guides-page-wrapper">
+  <Sidemenu
+    guides={guides}
+    sectionHeaders={sectionMenus}
+    handleClick={handleClick}
+  />
+  <div className="documentation-page-wrapper">
+    <div>
+      <p>&gt; {currentGuide.attributes.title}</p>
+      {/* <ReactMarkdown
+        source={currentGuide.attributes.content}
+        escapeHtml={false}
+      /> */}
+      {currentGuide.attributes.content}
+    </div>
+  </div>
+  {children}
+</div>
+
+    </Layout>
+
+}
+
+export async function getStaticProps() {
+  const isAuthNavigation = false
+  const [guidesRes, sectionHeadersRes, sectionHeadersResIH] = await Promise.all(
+    [
+      fetchAPI("/integration-guides", {
+        populate: "*",
+        filters: {
+          // Category: { $eq: "Terminal" },
+          // Category: { $eq: "Tax" },
+          // Category: { $in: ["Terminal", "Tax"] },
+        },
+      }),
+      fetchAPI("/section-headers", { populate: "*" }),
+      fetchAPI(
+        "/section-header-i-hubs",
+        { populate: "*" },
+        undefined,
+        isAuthNavigation
+      ),
+    ]
+  )
+
+return {
+props: {
+guides: guidesRes.data,
+sectionHeaders: sectionHeadersRes.data,
+sectionHeadersIH: sectionHeadersResIH.data,
+},
+revalidate: 1,
+}
+}

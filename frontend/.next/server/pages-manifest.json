@@ -2,6 +2,6 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/guides": "pages/guides.js",
-  "/": "pages/index.js"
+  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
+  "/my-mdx-page-strapi-2": "pages/my-mdx-page-strapi-2.js"
 }

@@ -1,32 +1,49 @@
-import React from 'react';
-import Guides from '../pages/guides';
-import Link from "next/link";
+import React from "react"
+import Guides from "../pages/guides"
+import Link from "next/link"
 
 const Sidemenu = ({ guides, sectionHeaders, handleClick }) => {
+  //   console.log("---->", sectionHeaders)
 
-    console.log(sectionHeaders);
+  return (
+    <div className="side-menu-wrapper">
+      {sectionHeaders.map((sectionHeader, i) => {
+        return (
+          <div key={i}>
+            <p className="sidemenu-section-header">
+              {sectionHeader.attributes.title}
+            </p>
 
-    return (
-        <div className="side-menu-wrapper">
-            {sectionHeaders.map((sectionHeader, i) => {
+            {sectionHeader.attributes.integration_guides.data.map(
+              (guide, k) => {
                 return (
-                    <>
-                        <p className="sidemenu-section-header">{sectionHeader.attributes.title}</p>
-
-                        {sectionHeader.attributes.integration_guides.data.map((guide, i) => {
-                            return (
-                                <Link href="" onClick={handleClick}>
-                                    <a className="sidemenu-divider">{guide.attributes.title}</a>
-                                </Link>
-                            )
-                        })}
-
-
-                    </>
+                  <div key={guide.attributes.slug}>
+                    <Link href={`/guide/${guide.attributes.slug}`}>
+                      <a
+                        onClick={() =>
+                          handleClick(
+                            sectionHeader.attributes.slug,
+                            guide.attributes.slug
+                          )
+                        }
+                        className="sidemenu-divider"
+                        style={{
+                          display: "inline",
+                          textDecoration: "underline",
+                        }}
+                      >
+                        {guide.attributes.title}
+                      </a>
+                    </Link>
+                  </div>
                 )
-            })}
-        </div>
-    )
+              }
+            )}
+          </div>
+        )
+      })}
+    </div>
+  )
 }
 
-export default Sidemenu;
+export default Sidemenu

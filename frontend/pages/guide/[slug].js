@@ -1,23 +1,27 @@
-import React from 'react';
-import ReactMarkdown from "react-markdown";
+import Link from "next/link"
+import React from "react"
+import ReactMarkdown from "react-markdown"
 import { fetchAPI } from "../../lib/api"
 
-
-const Guides = ( guides ) => {
-    return (
-        <>
-        <h1>
-            {/* {guides.attributes.title} */}
-        </h1>
-        <ReactMarkdown
-            source={guides.attributes.content}
-            escapeHtml={false}
-          />
-        {/* <p>
-          {guides.attributes.content}
-        </p> */}
-        </>
-    )
+const Guides = ({ guides }) => {
+  const guide = guides[0]
+  return (
+    <div style={{ display: "flex" }}>
+      <div
+        style={{
+          display: "flex",
+          margin: "10px 50px",
+        }}
+      >
+        <Link href="/guides/">&lt; Go back</Link>
+      </div>
+      <div>
+        <h1>{guide.attributes.title}</h1>
+        <ReactMarkdown source={guide.attributes.content} escapeHtml={false} />
+        <p>{guide.attributes.content}</p>
+      </div>
+    </div>
+  )
 }
 
 export async function getStaticPaths() {
@@ -33,17 +37,22 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps() {
-    const [guideRes] = await Promise.all([
-      fetchAPI("/integration-guides", { populate: "*" }),
-    ])
-  
-    return {
-      props: {
-        guides: guideRes.data,
+export async function getStaticProps({ params }) {
+  const guideRes = await fetchAPI("/integration-guides", {
+    filters: { slug: params.slug },
+    populate: {
+      articles: {
+        populate: "*",
       },
-      revalidate: 1,
-    }
-  }
+    },
+  })
 
-export default Guides;
+  return {
+    props: {
+      guides: guideRes.data,
+    },
+    revalidate: 1,
+  }
+}
+
+export default Guides
