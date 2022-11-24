@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "integration_guide_i_hubs",
+  "info": {
+    "singularName": "integration-guide-i-hub",
+    "pluralName": "integration-guide-i-hubs",
+    "displayName": "Integration Guide - IHub"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "richtext"
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "section_header_i_hub": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::section-header-i-hub.section-header-i-hub",
+      "inversedBy": "integration_guides"
+    }
+  }
+}
