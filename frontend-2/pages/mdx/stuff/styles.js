@@ -77,6 +77,58 @@ img:hover {
   background-color: #fafafa;
   padding: 64px 64px;
 }
+
+code {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  // font-size: 85%;
+  background-color: #6e768166;
+  border-radius: 6px;
+}
+
+pre {
+  max-width:500px;
+  background-color:#fff;
+  padding:20px 20px;
+  border:1px dashed blue;
+  overflow-x: auto;
+}
+
+pre code {
+  background-color: transparent;
+  font-size: 13px;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 5px;
+}
+
+td {
+  padding: 5px
+}
+
+tr:nth-child(2n-1) {
+  background-color: #fff;
+}
+
+tr:nth-child(2n) {
+  background-color: #ccc;
+}
+
+a {
+  color: #58a6ff;
+}
+
+blockquote {
+  padding: 0 1em;
+  color: #8b949e;
+  border-left: 0.25em solid #30363d;
+}
 `;
 
 export default styles;
