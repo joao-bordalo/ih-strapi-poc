@@ -9,7 +9,7 @@
 
 ## Initial config
 
-Be sure your `.env` file has the following variables
+Be sure your `backend/.env` file has the following variables
 
 ```
 HOST=0.0.0.0
@@ -18,6 +18,12 @@ APP_KEYS=THE_APP_KEYS
 API_TOKEN_SALT=THE_API_TOKEN_SALT
 ADMIN_JWT_SECRET=THE_ADMIN_JWT_SECRET
 JWT_SECRET=THE_JWT_SECRET
+```
+
+Be sure your `frontend-2/.env` file has the following variables
+
+```
+GITHUB_API_KEY=THE_GITHUB_API_KEY
 ```
 
 ## Run
