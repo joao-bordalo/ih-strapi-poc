@@ -17,24 +17,24 @@ const Sidemenu = ({ sectionHeaders, handleClick }) => {
               (guide, k) => {
                 return (
                   <div key={guide.attributes.slug}>
-                    {/* <Link href={`/guide/${guide.attributes.slug}`}> */}
-                    <a
-                      onClick={() =>
-                        handleClick(
-                          sectionHeader.attributes.slug,
-                          guide.attributes.slug
-                        )
-                      }
-                      className="sidemenu-divider"
-                      style={{
-                        display: "inline",
-                        textDecoration: "underline",
-                        cursor: "pointer",
-                      }}
-                    >
-                      {guide.attributes.title}
-                    </a>
-                    {/* </Link> */}
+                    <Link href={`/mdx/strapi/${guide.attributes.slug}`}>
+                      <span
+                        onClick={() =>
+                          handleClick(
+                            sectionHeader.attributes.slug,
+                            guide.attributes.slug
+                          )
+                        }
+                        className="sidemenu-divider"
+                        style={{
+                          display: "inline",
+                          textDecoration: "underline",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {guide.attributes.title}
+                      </span>
+                    </Link>
                   </div>
                 );
               }
