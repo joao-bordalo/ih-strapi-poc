@@ -6,23 +6,27 @@ import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 import remarkGfm from "remark-gfm";
 
-import styles from "./stuff/styles";
-import { fetchAPI } from "./stuff/api";
-import Sidemenu from "./stuff/sidemenu";
-import MyComponent from "./stuff/MyComponent";
+import styles from "../stuff/styles";
+import { fetchAPI } from "../stuff/api";
+import Sidemenu from "../stuff/sidemenu";
+import MyComponent from "../stuff/MyComponent";
 import {
   stoplightExample1,
   stoplightExample2,
   stoplightExample3,
   stoplightExample4,
   stoplightExample5,
-} from "./stuff/markdownExamples";
+} from "../stuff/markdownExamples";
 
 const mdExample = stoplightExample5;
 const components = { MyComponent };
 
-const Guides = ({ guides, sectionHeaders, sectionHeadersIH }) => {
-  const [currentGuide, setCurrentGuide] = useState(guides[2]);
+const imagesPath = (markdown) => {
+  return markdown.replaceAll("(/uploads/", "(http://localhost:1337/uploads/");
+};
+
+const Strapi = ({ guide, guides, sectionHeaders, sectionHeadersIH }) => {
+  const [currentGuide, setCurrentGuide] = useState(guide);
   const [mdxModule, setMdxModule] = useState();
 
   const sectionMenus = [...sectionHeaders, ...sectionHeadersIH];
@@ -41,7 +45,7 @@ const Guides = ({ guides, sectionHeaders, sectionHeadersIH }) => {
   useEffect(() => {
     (async () => {
       const content = await serialize(
-        currentGuide.attributes.content /* mdExample */,
+        imagesPath(currentGuide.attributes.content /* mdExample */),
         {
           mdxOptions: {
             remarkPlugins: [remarkGfm],
@@ -73,8 +77,25 @@ const Guides = ({ guides, sectionHeaders, sectionHeadersIH }) => {
   );
 };
 
-export async function getStaticProps() {
-  const isAuthNavigation = false;
+export default Strapi;
+
+export async function getStaticPaths() {
+  const guidesRes = await fetchAPI("/integration-guides", { fields: ["slug"] });
+
+  return {
+    paths: guidesRes.data.map((guide) => ({
+      params: {
+        id: guide.attributes.slug,
+      },
+    })),
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const { id } = params;
+
+  const isAuthNavigation = true;
   const [guidesRes, sectionHeadersRes, sectionHeadersResIH] = await Promise.all(
     [
       fetchAPI("/integration-guides", {
@@ -95,8 +116,18 @@ export async function getStaticProps() {
     ]
   );
 
+  const guideRes = await fetchAPI("/integration-guides", {
+    filters: { slug: id },
+    populate: {
+      articles: {
+        populate: "*",
+      },
+    },
+  });
+
   return {
     props: {
+      guide: guideRes.data[0],
       guides: guidesRes.data,
       sectionHeaders: sectionHeadersRes.data,
       sectionHeadersIH: sectionHeadersResIH.data,
@@ -104,5 +135,3 @@ export async function getStaticProps() {
     revalidate: 1,
   };
 }
-
-export default Guides;

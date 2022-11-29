@@ -6,7 +6,9 @@ import qs from "qs";
  * @returns {string} Full Strapi URL
  */
 export function getStrapiURL(path = "") {
-  return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"}${path}`;
+  return `${
+    process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"
+  }${path}`;
 }
 
 /**
@@ -16,9 +18,14 @@ export function getStrapiURL(path = "") {
  * @param {Object} options Options passed to fetch
  * @returns Parsed API call response
  */
-export async function fetchAPI(path, urlParamsObject = {}, options = {}, isAuthNavigation = false) {
+export async function fetchAPI(
+  path,
+  urlParamsObject = {},
+  options = {},
+  isAuthNavigation = false
+) {
   const token =
-    "424b2a7aa2789f777c9b51e2c2d5e1baa18fc494fce472c8881c82a4d9ffe5fc16871ee78937367d957cb63f5eb0b5835cf1b0995a16cc6487224dc521683d38f4b813dd3a0afae78083adc411568f8be4be35173f464e0e501a77f2ca028bfeacdd3ac9d0eb32f4c2b3b5846f98bff6680c4578f4932566908f6a8271fd5710";
+    "cc198e92bd67a622715a2eafd4dacb65cd6a1af6e206a6b4f75aef9c77a6ad9fdc1d4bedb7e77178e069c9e81227203832e9204649967e0e31309a43413d008227ae8d6cd72f465734ca1d52b5a6efa8e552e26eb8b1bcd115dfa209bf3b1cefdaf41608fff3dfd888644c6b4f873e5778ac6956be667ed2f2cf1b0b6e6f0e5b";
 
   // Merge default and user options
   const mergedOptions = {
@@ -31,7 +38,9 @@ export async function fetchAPI(path, urlParamsObject = {}, options = {}, isAuthN
 
   // Build request URL
   const queryString = qs.stringify(urlParamsObject);
-  const requestUrl = `${getStrapiURL(`/api${path}${queryString ? `?${queryString}` : ""}`)}`;
+  const requestUrl = `${getStrapiURL(
+    `/api${path}${queryString ? `?${queryString}` : ""}`
+  )}`;
 
   // Trigger API call
   const response = await fetch(requestUrl, mergedOptions);
