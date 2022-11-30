@@ -81,13 +81,29 @@ export default Strapi;
 
 export async function getStaticPaths() {
   const guidesRes = await fetchAPI("/integration-guides", { fields: ["slug"] });
+  const guidesResPvt = await fetchAPI(
+    "/integration-guide-i-hubs",
+    {
+      fields: ["slug"],
+    },
+    undefined,
+    true
+  );
+
+  const paths = guidesRes.data.map((guide) => ({
+    params: {
+      id: guide.attributes.slug,
+    },
+  }));
+
+  const pvtPaths = guidesResPvt.data.map((guide) => ({
+    params: {
+      id: guide.attributes.slug,
+    },
+  }));
 
   return {
-    paths: guidesRes.data.map((guide) => ({
-      params: {
-        id: guide.attributes.slug,
-      },
-    })),
+    paths: [...paths, ...pvtPaths],
     fallback: false,
   };
 }
@@ -95,7 +111,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const { id } = params;
 
-  const isAuthNavigation = true;
+  const isAuthNavigation = false;
   const [guidesRes, sectionHeadersRes, sectionHeadersResIH] = await Promise.all(
     [
       fetchAPI("/integration-guides", {
@@ -125,9 +141,23 @@ export async function getStaticProps({ params }) {
     },
   });
 
+  const guidesResPvt = await fetchAPI(
+    "/integration-guide-i-hubs",
+    {
+      filters: { slug: id },
+      populate: {
+        articles: {
+          populate: "*",
+        },
+      },
+    },
+    undefined,
+    true
+  );
+
   return {
     props: {
-      guide: guideRes.data[0],
+      guide: [...guideRes.data, ...guidesResPvt.data][0],
       guides: guidesRes.data,
       sectionHeaders: sectionHeadersRes.data,
       sectionHeadersIH: sectionHeadersResIH.data,
