@@ -9,9 +9,9 @@ Props:
 
 
 ## Example
-\`\`\`
+```
 <MyComponent text="nice" />
-\`\`\`
+```
 
 ## Result:
 <MyComponent text="nice" />
@@ -279,9 +279,9 @@ Web applications are written in a server-side language and run on a server where
 #### 1. Redirecting the User to the SaltPay Authentication Page
 Create a login link sending the user to the SaltPay authentication page. Here is an example.
 
-\`\`\`
+```
 https://identity.cloud.saltpay.co/oauth/v2/oauth-authorize?response_type=code&client_id=CLIENT_ID&redirect_uri=REDIRECT_URI&scope=SCOPES&state=1234XYZ&code_challenge=CODE_CHALLENGE&code_challenge_method=S256&ui_locales=UI_LOCALES&nonce=NONCE
-\`\`\`
+```
 
 |  |  |
 |---|---|
@@ -302,9 +302,9 @@ The user sees the authorization prompt.
 
 If the user clicks “Allow,” the service redirects the user back to your site with a corresponding authorization code.
 
-\`\`\`
+```
 https://my-app.com/redirect?code=AUTH_CODE_HERE&state=1234zyx
-\`\`\` 
+``` 
 
 |  |  |
 |---|---|
@@ -334,16 +334,16 @@ When calling this endpoint, you need to provide the following query parameters:
 
 Plus, you should provide in the \`authorization\` header \`CLIENT_ID:CLIENT_SECRET\` encoded as base64, and sent as a basic token. It should look something like this:
 
-\```json
+```json
 Authorization: Basic <VGhlIGJhc2tldCBpcyBmdWxsIG9mIGdyYXBlcy4=>
-\```
+```
 
 #### 3. Parsing the ID token
 The ID Token is just a JWT so that you can parse it and have the requested user attributes. It is essential to check the signature and the nonce of the JWT.
 
 Here's an example of an ID Token payload:
 
-\```
+```
 {
   exp 1654725332
   nbf 1654721732
@@ -368,7 +368,7 @@ Here's an example of an ID Token payload:
   sid 86KWYqlZNYuB9J7G
 }
 
-\```
+```
 
 >**Mind the Salt ID.**<br />Note that you'll always receive the \`salt_id\` attribute, which is the source of truth for identifying the user across our ecosystem.
 
@@ -378,9 +378,9 @@ Given a valid access token, you can now use a Bearer Token to authenticate your 
 
 All this means is prefixing your access token with the word \`Bearer\` and sending it in the HTTP \`Authorization\` header. This should look something like this:
 
-\```json
+```json
 Authorization: Bearer <ACCESS_TOKEN>
-\```
+```
 
 #### 5. Refreshing the Access Token (Extending the Session)
 

@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../stuff/header";
 import styles from "../stuff/styles";
 import ghAPI from "./api";
 
@@ -7,6 +8,7 @@ const Github = ({ guidesList }) => {
     <>
       <style jsx>{styles}</style>
 
+      <Header />
       <div className="guides-page-wrapper">
         <ul>
           {guidesList.tree.map((item) => (

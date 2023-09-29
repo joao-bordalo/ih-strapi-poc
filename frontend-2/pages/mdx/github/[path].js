@@ -5,6 +5,7 @@ import { MDXRemote } from "next-mdx-remote";
 import remarkGfm from "remark-gfm";
 import MyComponent from "../stuff/MyComponent";
 import ghAPI from "./api";
+import Header from "../stuff/header";
 
 const components = { MyComponent };
 
@@ -49,9 +50,11 @@ const Github = ({ guide, guidesList, assetsList }) => {
       const content = await serialize(mdExample, {
         mdxOptions: {
           remarkPlugins: [remarkGfm],
+          development: true,
         },
         parseFrontmatter: false,
       });
+      console.log("aaaaaa", content);
       setMdxModule(content);
     })();
   }, [guide]);
@@ -60,6 +63,7 @@ const Github = ({ guide, guidesList, assetsList }) => {
     <>
       <style jsx>{styles}</style>
 
+      <Header href="/mdx/github" />
       <div className="guides-page-wrapper">
         <ul>
           {guidesList.tree.map((item) => (
