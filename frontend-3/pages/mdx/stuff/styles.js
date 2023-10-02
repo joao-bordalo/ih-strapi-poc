@@ -129,6 +129,36 @@ blockquote {
   color: #8b949e;
   border-left: 0.25em solid #30363d;
 }
+
+.side-menu-v2 {
+  width: 500px;  
+}
+
+.side-menu-v2-item {
+  margin-bottom: 20px;
+}
+
+.side-menu-v2-item .title {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.side-menu-v2-item a {
+  color: black;
+}
+
+.side-menu-v2-item a:hover {
+color: #58a6ff
+}
+
+.side-menu-v2-item ul {
+margin: 0;
+}
+
+.side-menu-v2-item li.selected {
+background: #F1F3B6;
+}
+
 `;
 
 export default styles;

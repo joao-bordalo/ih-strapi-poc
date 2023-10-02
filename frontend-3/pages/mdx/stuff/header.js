@@ -1,20 +1,32 @@
 import Link from "next/link";
 
-const Header = ({ href }) => {
+const Header = () => {
   return (
-    <Link
-      href={href || "/mdx"}
+    <div
       style={{
+        display: "flex",
+        justifyContent: "space-between",
         height: "40px",
         display: "flex",
         alignItems: "center",
         padding: "20px",
         color: "#000",
         borderBottom: "1px solid",
+        margin: 0,
       }}
     >
-      &lt;- Go Back
-    </Link>
+      <h2 style={{}}>POC: DOC CMS + API Spec</h2>
+
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+        }}
+      >
+        <Link href="/mdx/github/">Documentation</Link>
+        <Link href="/mdx/github/api-specs">API Spec</Link>
+      </div>
+    </div>
   );
 };
 
