@@ -40,7 +40,9 @@
     "react-markdown": "^8.0.3",
     "react-table": "7.8.0",
     "react-toastify": "^9.0.8",
+    "redoc": "^2.1.2",
     "remark-gfm": "^3.0.1",
-    "sass": "^1.64.1"
+    "sass": "^1.64.1",
+    "swagger-ui-react": "^5.9.0"
   }
 }
